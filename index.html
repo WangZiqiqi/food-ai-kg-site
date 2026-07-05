@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CLEAR Evidence Graph</title>
+  <meta name="description" content="Interactive CLEAR claim-level evidence graph: fermented foods, probiotics, strains, and health outcomes with source PMIDs." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="./assets/styles.css?v=explorer-20260612-kg" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero glass">
+      <div>
+        <p class="eyebrow">Claim-level evidence graph · Fermented foods · Probiotics</p>
+        <h1>CLEAR Evidence Graph</h1>
+        <p class="subtitle">Explore claim-level evidence links between fermented foods, probiotics, strains, and health outcomes, each traceable to source PMIDs. Search for an entity, then render a focused local graph around it.</p>
+      </div>
+      <div class="stat-grid" id="stats"></div>
+    </section>
+
+    <section class="workspace glass">
+      <aside class="panel left-panel">
+        <div class="search-box">
+          <label class="search-label" for="searchInput">Search center entity</label>
+          <div class="search-row">
+            <input id="searchInput" type="search" placeholder="try: kefir, cholesterol, Lactobacillus…" autocomplete="off" />
+            <button id="clearSearch" title="Clear search">×</button>
+          </div>
+          <div id="resultList" class="result-list search-dropdown" hidden></div>
+        </div>
+        <div class="quick-actions">
+          <button data-focus="food_kefir">Kefir</button>
+          <button data-focus="strain_lactobacillus_plantarum">L. plantarum</button>
+          <button data-focus="outcome_cholesterol">Cholesterol</button>
+        </div>
+
+        <div class="control-grid">
+          <label>Depth
+            <select id="depthSelect">
+              <option value="1">1 hop</option>
+              <option value="2" selected>2 hops</option>
+              <option value="3">3 hops</option>
+              <option value="4">4 hops</option>
+            </select>
+          </label>
+          <label>Max nodes
+            <select id="maxNodesSelect">
+              <option value="100">100</option>
+              <option value="250" selected>250</option>
+              <option value="500">500</option>
+              <option value="1000">1000</option>
+            </select>
+          </label>
+        </div>
+        <div class="action-row overview-only">
+          <button id="overviewBtn">Overview</button>
+        </div>
+        <div id="renderedStats" class="rendered-stats">No local graph rendered yet.</div>
+
+        <div class="section-title">Node types</div>
+        <div id="typeFilters" class="chips"></div>
+        <div class="section-title">Claim interpretation</div>
+        <div id="directionFilters" class="chips compact"></div>
+      </aside>
+
+      <section class="graph-card">
+        <div class="toolbar">
+          <div class="legend" id="legend"></div>
+          <div class="toolbar-actions">
+            <button id="fitBtn">Fit</button>
+            <button id="labelsBtn" class="active" aria-pressed="true">Labels</button>
+            <button id="resetBtn">Reset</button>
+          </div>
+        </div>
+        <div id="graphWrap">
+          <svg id="graph" role="img" aria-label="Interactive CLEAR evidence graph"></svg>
+          <div id="graphEmpty" class="graph-empty">
+            <div class="orb small"></div>
+            <h2>Start with an entity</h2>
+            <p>Search for a food, strain, or outcome to render a focused local graph. The full graph is indexed, but not rendered by default.</p>
+          </div>
+          <div id="tooltip" class="tooltip" hidden></div>
+        </div>
+      </section>
+
+      <aside class="panel detail-panel" id="detailPanel">
+        <div class="empty-state">
+          <div class="orb"></div>
+          <h2>Select a node</h2>
+          <p>Click a node or search result for full details. Use “Set as center” to continue exploring from any entity.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="./assets/app.js?v=explorer-20260612-kg"></script>
+</body>
+</html>
